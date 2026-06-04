@@ -1,4 +1,5 @@
 openapi: 3.0.1
+
 info:
   title: Todo-Listen-Verwaltung
   description: "Die Verwaltung unserer ToDo-Liste"
@@ -8,27 +9,32 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 0.1.0
+
 servers:
-- url: http://127.0.0.1:5000/
+  - url: http://127.0.0.1:5000/
+
 tags:
-- name: Listenverwaltung
+  - name: Listenverwaltung
+
 paths:
+
   /todo-list/{list_id}:
     get:
       tags:
-      - Listenverwaltung
-      summary: Get all items from list
+        - Listenverwaltung
+      summary: Gibt eine bestimmte Todo-Liste zurück
       operationId: getList
       parameters:
-      - name: list_id
-        in: path
-        description: list id
-        required: true
-        schema:
-          type: string
+        - name: list_id
+          in: path
+          description: ID der Liste
+          required: true
+          schema:
+            type: string
+            format: uuid
       responses:
         200:
-          description: List item returned
+          description: Liste wird ausgegeben
           content:
             application/json:
               schema:
@@ -36,161 +42,235 @@ paths:
                 items:
                   $ref: '#/components/schemas/TodoEntry'
         404:
-          description: Invalid list id
-          content: 
+          description: Liste existiert nicht
+          content:
             application/json:
               schema: {}
+
     delete:
       tags:
-      - Listenverwaltung
-      summary: Delete a list
+        - Listenverwaltung
+      summary: Entfernt eine Liste
       operationId: deleteList
       parameters:
-      - name: list_id
-        in: path
-        description: list id
-        required: true
-        schema:
-          type: string
+        - name: list_id
+          in: path
+          description: ID der Liste
+          required: true
+          schema:
+            type: string
+            format: uuid
       responses:
-        200:
-          description: List was deleted
-          content: {}
+        204:
+          description: Liste wurde entfernt
         404:
-          description: Invalid list id
-          content: {}
+          description: Liste existiert nicht
+          content:
+            application/json:
+              schema: {}
+
     post:
       tags:
-      - Listenverwaltung
-      summary: Add a Entry to the List
+        - Listenverwaltung
+      summary: Erstellt einen neuen Eintrag in einer Liste
       operationId: addEntry
       parameters:
-      - name: entry_id
-        in: path
-        description: entry id
+        - name: list_id
+          in: path
+          description: ID der Liste
+          required: true
+          schema:
+            type: string
+            format: uuid
+
+      requestBody:
         required: true
-        schema:
-          type: string
-      responses:
-        200:
-          description: Entry added
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TodoList'
-        required: true
+              $ref: '#/components/schemas/TodoEntryCreate'
+
+      responses:
+        201:
+          description: Eintrag erstellt
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TodoEntry'
+        400:
+          description: Anfrage fehlerhaft
         404:
-          description: Invalid List id
-          content: {}
+          description: Liste existiert nicht
+          content:
+            application/json:
+              schema: {}
+
   /todo-list:
     get:
       tags:
-      - Listenverwaltung
-      summary: Get all lists
-      operationId: getList
+        - Listenverwaltung
+      summary: Gibt alle Listen aus
+      operationId: getAllLists
       responses:
         200:
-          description: Lists returned
+          description: Listen ausgegeben
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/TodoEntry'
+                  $ref: '#/components/schemas/TodoList'
+
     post:
       tags:
-      - Listenverwaltung
-      summary: Add new list
+        - Listenverwaltung
+      summary: Erstellt eine neue Liste
       operationId: addList
       requestBody:
-        description: list object
+        description: Neue Todo-Liste
+        required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TodoList'
-        required: true
+              $ref: '#/components/schemas/TodoListCreate'
+
       responses:
-        200:
-          description: List added
+        201:
+          description: Liste erstellt
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/TodoList'
+        400:
+          description: Anfrage fehlerhaft
         500:
-          description: List could not be added
-          content: {}
-      x-codegen-request-body-name: body
+          description: Liste kann nicht erstellt werden
+          content:
+            application/json:
+              schema: {}
+
   /todo-list/entry/{entry_id}:
     patch:
       tags:
-      - Listenverwaltung
-      summary: update a entry
-      operationId: updateentry
+        - Listenverwaltung
+      summary: Aktualisieren eines Eintrags
+      operationId: updateEntry
       parameters:
-      - name: entry_id
-        in: path
-        description: entry id
+        - name: entry_id
+          in: path
+          description: ID des Eintrags
+          required: true
+          schema:
+            type: string
+            format: uuid
+
+      requestBody:
         required: true
-        schema:
-          type: string
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TodoEntryUpdate'
+
       responses:
         200:
-          description: Entry updated
+          description: Eintrag aktualisiert
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/TodoEntry'
+                $ref: '#/components/schemas/TodoEntry'
         400:
-          description: Invalid Body
+          description: Anfrage fehlerhaft
         404:
-          description: Invalid list id
-          content: 
+          description: Eintrag existiert nicht
+          content:
             application/json:
               schema: {}
+
     delete:
       tags:
-      - Listenverwaltung
-      summary: Delete a list
-      operationId: deleteList
+        - Listenverwaltung
+      summary: Eintrag entfernen
+      operationId: deleteEntry
       parameters:
-      - name: list_id
-        in: path
-        description: list id
-        required: true
-        schema:
-          type: string
+        - name: entry_id
+          in: path
+          description: ID des Eintrags
+          required: true
+          schema:
+            type: string
+            format: uuid
+
       responses:
-        200:
-          description: List was deleted
-          content: {}
+        204:
+          description: Eintrag wurde entfernt
         404:
-          description: Invalid list id
-          content: {}
+          description: Eintrag existiert nicht
+          content:
+            application/json:
+              schema: {}
+
 components:
   schemas:
+
     TodoList:
       type: object
+      required:
+        - id
+        - name
       properties:
         id:
           type: string
           format: uuid
         name:
           type: string
+          example: Einkaufsliste
+
+    TodoListCreate:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          example: Einkaufsliste
+
     TodoEntry:
       type: object
+      required:
+        - id
+        - name
+        - list_id
       properties:
         id:
           type: string
           format: uuid
         name:
           type: string
+          example: Milch kaufen
         description:
           type: string
+          example: 2 Liter Vollmilch
         user_id:
           type: string
           format: uuid
         list_id:
           type: string
           format: uuid
+
+    TodoEntryCreate:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+
+    TodoEntryUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
