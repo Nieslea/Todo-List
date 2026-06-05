@@ -94,6 +94,7 @@ def add_new_list():
 # DELETE a list
 @app.route('/todo-list/<list_id>', methods=['GET', 'DELETE'])
 def handle_list(list_id):
+    global todos
 
     list_item = None
 
@@ -122,7 +123,6 @@ def handle_list(list_id):
 
         todo_lists.remove(list_item)
 
-        global todos
         todos = [
             todo for todo in todos
             if todo['list'] != list_id
