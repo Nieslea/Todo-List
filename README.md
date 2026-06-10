@@ -51,7 +51,8 @@
     -VM Auswaehlen -> Aendern -> Netzwerk -> Adapter 1
     -Anpassen:
         -Angeschlossen an: Netzwerkbruecke
-        -Name: <Verwendete Netzwerkkarte>
+        -Name: <Verwendete Netzwerkkarte> 
+    (Das Geraet war waehrend der Einrichtung per LAN-Kabel mit meinem Heimnetzwerk verbunden.)
     
     -Speichern, Schliessen, VM starten, Anmelden
 
@@ -80,6 +81,7 @@
                                 - 192.168.123.1
                                 - 8.8.8.8   
     )
+    (ggf. muessen die Adressen an ein neues Netzwerk angepasst werden. Darunter fallen IP, Gateway und die Nameserveradresse.)
     - Danach: Strg + O , Enter, Strg + X
 
     -bash: "sudo netplan try" (Testet den erstellen Netzplan)
