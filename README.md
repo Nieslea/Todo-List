@@ -72,16 +72,15 @@
                     enp0s3:
                         dhcp4: false
                         addresses:
-                            - 192.168.123.100/24
+                            - 192.168.24.104/24
                         routes:
                             - to: default
-                              via: 192.168.123.1
+                              via: 192.168.24.254
                         nameservers:
                             addresses:
-                                - 192.168.123.1
+                                - 192.168.24.254
                                 - 8.8.8.8   
     )
-    (ggf. muessen die Adressen an ein neues Netzwerk angepasst werden. Darunter fallen IP, Gateway und die Nameserveradresse.)
     - Danach: Strg + O , Enter, Strg + X
 
     -bash: "sudo netplan try" (Testet den erstellen Netzplan)
@@ -92,7 +91,7 @@
     -bash: "ip route" (Zeigt die Netzadresse)
     -Ergebnis:
         -Interface: enp0s3
-        -DHCP-Addresse: 192.168.123.100
+        -DHCP-Addresse: 192.168.24.104
 
 ## 4. Erstellen der Benutzer
     -Ziel: Benutzer willi ohne Adminrechte, Benutzer fernzugriff mit Adminrechten erstellen
@@ -128,7 +127,7 @@
     -Ziel: Benutzer fernzugriff soll SSH nutzen koennen
 
 ### Verbindung hinzufuegen
-    -bash: "ssh fernzugriff@192.168.123.100" (Die SSH Verbindung bei fernzugriff hinzufuegen)
+    -bash: "ssh fernzugriff@192.168.24.104" (Die SSH Verbindung bei fernzugriff hinzufuegen)
     -bash: "yes" (bestaetigen)
     -Anmelden mit fernzugriff
 
@@ -170,7 +169,7 @@
 
 ### Starten
     -bash: "python3 Web-App.py" (Starten der App)
-    -Ergebnis: Running on http://192.168.123.100:5000
+    -Ergebnis: Running on http://192.168.24.104:5000/todo-list
     -App ist aufrufbar
 
     - Strg + C (Beenden der App)
@@ -208,3 +207,7 @@
     bash: "sudo docker start todo-container" (starten)
     bash: "sudo docker ps" (Informationen zu laufenden Containern anzeigen)
 
+## 11. Programm im Web aufrufen
+
+    Browser eines Geraets im selben Netzwerk
+    Link: http://192.168.24.104:5000/todo-list
