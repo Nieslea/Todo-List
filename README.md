@@ -1,13 +1,13 @@
 # Web-App-Server - Todo-Listen Verwaltung
+    -Anforderungen fuer die VM:
+        -Benutzer willi ohne Adminrechte
+        -Benutzer fernzugriff mit ssh Zugriff und Adminrechten
+        -eine statische IP und festlegen
+        -flask und python installiert haben
+        -die Web-App ueber einen Docker Container starten und ueber die IP-Adresse mit festgelegtem Port erreichen koennen
 
 ## 1 Erstellung des Servers in Virtual Box
     -Ziel eine VM Erstellen die den Anforderungen entspricht
-    -Anforderungen:
-        -Benutzer willi ohne Adminrechte
-        -Benutzer fernzugriff mit ssh Zugriff und Adminrechten
-        -eine statische IP festlegen
-        -flask und python installiert haben
-        -die Web-App ueber einen Docker Container starten und ueber die IP-Adresse mit festgelegtem Port erreichen koennen
 
 ### Name und Betriebsystem der Virtuellen Maschine
     -VM-Name: Web-App
@@ -181,7 +181,7 @@
     - Strg + C (Beenden der App)
 
 ## 10. Docker einrichten
-    -Einen Container erstellen, der Automatisch hochfaehrt, ausser er wurde beendet
+    -Ziel: Einen Container erstellen, der Automatisch hochfaehrt, ausser er wurde beendet
 
 ### requirements.txt erstellen
     -bash: "nano requirements.txt" (erstellt das Dokument und oeffnet die Bearbeitung)
@@ -204,38 +204,42 @@
     -danach Strg # O, Enter, Strg + X
 
 ### Docker image bauen
-    bash: "sudo docker build -t todo-app ." (Container wird vorbereitet)
-    bash: "sudo docker run -d --name todo-container -p 5000:5000 todo-app" (erstellt und startet den Container)
-    bash: "sudo docker ps" (zeigt einem die Container die aktuell laufen)
+    -bash: "sudo docker build -t todo-app ." (Container wird vorbereitet)
+    -bash: "sudo docker run -d --name todo-container -p 5000:5000 todo-app" (erstellt und startet den Container)
+    -bash: "sudo docker ps" (zeigt einem die Container die aktuell laufen)
 
 ### Container verwalten
-    bash: "sudo docker stop todo-container" (stoppen)
-    bash: "sudo docker start todo-container" (starten)
-    bash: "sudo docker ps" (Informationen zu laufenden Containern anzeigen)
+    -bash: "sudo docker stop todo-container" (stoppen)
+    -bash: "sudo docker start todo-container" (starten)
+    -bash: "sudo docker ps" (Informationen zu laufenden Containern anzeigen)
 
 ## 11. Programm im Web aufrufen
+    -Ziel: Das Programm von einem anderen Geraet aufrufen
 
-    Browser eines Geraets im selben Netzwerk
-    Link: http://192.168.24.104:5000/todo-list
+    -Browser eines Geraets im selben Netzwerk
+    -Link: http://192.168.24.104:5000/todo-list
 
 ## 12. Sonstiges
+    -Ziel: Download von Dokumenten, welche das Projekt dokumentieren
 
 ### Dockerfile vom Server per ssh Verbindung holen
-    terminal im Repo-Ordner oeffnen
-    terminal: "scp fernzugriff@192.168.24.104:/home/fernzugriff/todo-app/dockerfile ." (download mit Benutzer Fernzugriff von Server mit IP, von Pfad in aktuellen Pfad)
-        danach mit Passwort von fernzugriff bestaetigen
+    -terminal im Repo-Ordner oeffnen
+    -terminal: "scp fernzugriff@192.168.24.104:/home/fernzugriff/todo-app/dockerfile ." (download mit Benutzer Fernzugriff von Server mit IP, von Pfad in aktuellen Pfad)
+        -danach mit Passwort von fernzugriff bestaetigen
 
 
 ### Requirements.txt vom Server per ssh Verbindung holen
-    terminal im Repo-Ordner oeffnen
-    terminal: "scp fernzugriff@192.168.24.104:/home/fernzugriff/todo-app/requirements.txt ." (download mit Benutzer Fernzugriff von Server mit IP, von Pfad in aktuellen Pfad)
-        danach mit Passwort von fernzugriff bestaetigen
+    -terminal im Repo-Ordner oeffnen
+    -terminal: "scp fernzugriff@192.168.24.104:/home/fernzugriff/todo-app/requirements.txt ." (download mit Benutzer Fernzugriff von Server mit IP, von Pfad in aktuellen Pfad)
+        -danach mit Passwort von fernzugriff bestaetigen
 
 ### Netplan vom Server per ssh Verbindung holen
-    In der VM mit Adminbenutzer anmelden
-    bash: "sudo cp /etc/netplan/00-installer-config.yaml /tmp/netplan-config.yaml" (Datei auf dem Server vom etc Verzeichnis nach tmp kopieren und unbenennen)
-    bash: "sudo chmod 644 /tmp/netplan-config.yaml" (Berechtigungen auf die Datei erweitern fuer ssh)
-    terminal im Repo-Ordner oeffnen
-    terminal: "scp fernzugriff@192.168.24.104:/tmp/netplan-config.yaml ." (download mit Benutzer Fernzugriff von Server mit IP, von Pfad in aktuellen Pfad)
-        danach mit Passwort von fernzugriff bestaetigen
-    bash: "sudo rm /tmp/netplan-config.yaml" (Kopierte Datei wieder loeschen)
+    -Der Netplan, ist vom Benutzer fernzugriff nicht direkt kopierbar per ssh. Deswegen wurde die yaml-Datei zuerst in den tmp Ordner kopiert, die Berechtigungen fuer die Kopie gegeben und nach dem Kopieren ueber ssh, die Datei aus tmp wieder geloescht.
+
+    -In der VM mit Adminbenutzer anmelden
+    -bash: "sudo cp /etc/netplan/00-installer-config.yaml /tmp/netplan-config.yaml" (Datei auf dem Server vom etc Verzeichnis nach tmp kopieren und unbenennen)
+    -bash: "sudo chmod 644 /tmp/netplan-config.yaml" (Berechtigungen auf die Datei erweitern fuer ssh)
+    -terminal im Repo-Ordner oeffnen
+    -terminal: "scp fernzugriff@192.168.24.104:/tmp/netplan-config.yaml ." (download mit Benutzer Fernzugriff von Server mit IP, von Pfad in aktuellen Pfad)
+        -danach mit Passwort von fernzugriff bestaetigen
+    -bash: "sudo rm /tmp/netplan-config.yaml" (Kopierte Datei wieder loeschen)
