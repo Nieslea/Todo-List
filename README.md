@@ -161,7 +161,7 @@
 
 ### Web-App per Powershell verschieben
     -Terminal im Git-Verzeichnis oeffnen, wo die Datei liegt
-    -Befehl: "scp Web-App.py fernzugriff@192.168.123.100:/home/fernzugriff/todo-app/"
+    -Befehl: "scp Web-App.py fernzugriff@192.168.24.104:/home/fernzugriff/todo-app/"
     -Danach wieder auf den Server wechseln
 
 ## 9. Python App starten
@@ -211,3 +211,25 @@
 
     Browser eines Geraets im selben Netzwerk
     Link: http://192.168.24.104:5000/todo-list
+
+## 12. Sonstiges
+
+### Dockerfile vom Server per ssh Verbindung holen
+    terminal im Repo-Ordner oeffnen
+    terminal: "scp fernzugriff@192.168.24.104:/home/fernzugriff/todo-app/dockerfile ." (download mit Benutzer Fernzugriff von Server mit IP, von Pfad in aktuellen Pfad)
+        danach mit Passwort von fernzugriff bestaetigen
+
+
+### Requirements.txt vom Server per ssh Verbindung holen
+    terminal im Repo-Ordner oeffnen
+    terminal: "scp fernzugriff@192.168.24.104:/home/fernzugriff/todo-app/requirements.txt ." (download mit Benutzer Fernzugriff von Server mit IP, von Pfad in aktuellen Pfad)
+        danach mit Passwort von fernzugriff bestaetigen
+
+### Netplan vom Server per ssh Verbindung holen
+    In der VM mit Adminbenutzer anmelden
+    bash: "sudo cp /etc/netplan/00-installer-config.yaml /tmp/netplan-config.yaml" (Datei auf dem Server vom etc Verzeichnis nach tmp kopieren und unbenennen)
+    bash: "sudo chmod 644 /tmp/netplan-config.yaml" (Berechtigungen auf die Datei erweitern fuer ssh)
+    terminal im Repo-Ordner oeffnen
+    terminal: "scp fernzugriff@192.168.24.104:/tmp/netplan-config.yaml ." (download mit Benutzer Fernzugriff von Server mit IP, von Pfad in aktuellen Pfad)
+        danach mit Passwort von fernzugriff bestaetigen
+    bash: "sudo rm /tmp/netplan-config.yaml" (Kopierte Datei wieder loeschen)
