@@ -4,14 +4,14 @@ info:
   title: Todo-Listen-Verwaltung
   description: "Die Verwaltung unserer ToDo-Liste"
   contact:
-    email: wichmann@bbs-os-brinkstr.de
+    email: lea.niestegge@gmx.de
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 0.1.0
 
 servers:
-  - url: http://127.0.0.1:5000/
+  - url: http://192.168.24.104:5000/
 
 tags:
   - name: Listenverwaltung
@@ -22,7 +22,7 @@ paths:
     get:
       tags:
         - Listenverwaltung
-      summary: Gibt eine bestimmte Todo-Liste zurück
+      summary: Gibt eine bestimmte Todo-Liste zurueck
       operationId: getList
       parameters:
         - name: list_id
