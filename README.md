@@ -2,6 +2,12 @@
 
 ## 1 Erstellung des Servers in Virtual Box
     -Ziel eine VM Erstellen die den Anforderungen entspricht
+    -Anforderungen:
+        -Benutzer willi ohne Adminrechte
+        -Benutzer fernzugriff mit ssh Zugriff und Adminrechten
+        -eine statische IP festlegen
+        -flask und python installiert haben
+        -die Web-App ueber einen Docker Container starten und ueber die IP-Adresse mit festgelegtem Port erreichen koennen
 
 ### Name und Betriebsystem der Virtuellen Maschine
     -VM-Name: Web-App
