@@ -1,9 +1,11 @@
-###################################
-#Todo-Listen-Verwaltung mit Flask
-#
-#Requirements:
-#    pip install flask
-###################################
+#######################################################
+# Todo-Listen-Verwaltung mit Flask                    #
+#                                                     #
+# Lizenziert durch die Apache 2.0 Lizenz.             #
+# Verwendung der Datei nur unter der Berücksichtigung #
+# der Lizenzbedingungen erlaubt.                      #
+#                                                     #
+#######################################################
 
 import uuid
 
