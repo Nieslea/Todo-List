@@ -1,16 +1,16 @@
 # Web-App-Server - Todo-Listen Verwaltung
     -Anforderungen fuer die VM:
-        -Benutzer willi ohne Adminrechte
-        -Benutzer fernzugriff mit ssh Zugriff und Adminrechten
+        -Benutzer 'willi' ohne Adminrechte
+        -Benutzer 'fernzugriff' mit SSH Zugriff und Adminrechten
         -eine statische IP und festlegen
-        -flask und python installiert haben
+        -Flask und Python installiert haben
         -die Web-App ueber einen Docker Container starten und ueber die IP-Adresse mit festgelegtem Port erreichen koennen
 
 ## 1 Erstellung des Servers in Virtual Box
     -Ziel eine VM Erstellen die den Anforderungen entspricht
 
 ### Name und Betriebsystem der Virtuellen Maschine
-    -VM-Name: Web-App
+    -VM-Name: 'Web-App'
     -VM-Ordner: C:\Users\Niestegge\VirtualBox VMs
     -ISO-Abbild: C:\Users\Niestegge\Downloads\ubuntu-26.04-live-server-amd64.iso
         -Betriebsystem: Linux
@@ -18,7 +18,7 @@
         -Betriebsystem-Version: Ubuntu 25.04 (Plucky Puffin) (64-Bit)
 
 ### Einrichtung der unbeaufsichtigten Installation des Gastbetriebsystems
-    -Benutzername: server
+    -Benutzername: 'server'
 
 ### Virtuelle Hardware angeben
     -Hauptspeicher: 4096 MB (4 GB)
@@ -29,13 +29,13 @@
     -Plattenabbildgroesse: 50 GB
 
 ## 2 Installation der VM
-    -Ziel: Die VM einmal anschalten und keine Fehler haben, dazu eine deutsche Eingabe
+    -Ziel: Die VM einmal anschalten und keine Fehler haben, dazu eine deutsche Eingabe einrichten
 
 ### Start
     -VM Web-App-Server starten
     -Installation startet automatisch
 
-    -Nach abschluss Anmelden als Benutzer server
+    -Nach Abschluss Anmelden als Benutzer 'server'
 
 ### Tastaturlayout umstellen auf Deutsch
     -bash: "sudo dpkg-reconfigure keyboard-configuration" (Gibt einem die Wahl des Tastaturlayouts)
@@ -67,7 +67,7 @@
     -bash: "ip route" (Anzeigen der Netzadresse)
     -Ergebnis:
         -Interface: enp0s3
-        -DHCP-Addresse: 192.168.123.68
+        -DHCP-Addresse: 192.168.24.68
     
 ### Statische IP-Adresse einrichten
     -bash: "sudo nano /etc/netplan/00-installer-config.yaml" (Bearbeiten der Pfaddatei (der Netzplan))
@@ -100,10 +100,10 @@
         -DHCP-Addresse: 192.168.24.104
 
 ## 4. Erstellen der Benutzer
-    -Ziel: Benutzer willi ohne Adminrechte, Benutzer fernzugriff mit Adminrechten erstellen
+    -Ziel: Benutzer 'willi' ohne Adminrechte, Benutzer 'fernzugriff' mit Adminrechten erstellen
 
-### Erstellung vom Benutzer willi
-    -bash: "sudo adduser willi" (Erstellen von Benutzer willi)
+### Erstellung vom Benutzer 'willi'
+    -bash: "sudo adduser willi" (Erstellen von Benutzer 'willi')
     -Danach koennen Namen, Raum usw. angegeben werden, oder die Felder einfach mit Enter leer gelassen werden
     -Bestaetigen mit: "Y"
 
@@ -111,16 +111,16 @@
     -bash: "id willi" (Auslesen der Benutzerid und Benutzergruppen)
     -Ergebnis: Keine Adminrechte
 
-### Erstellung vom Benutzer fernzugriff
-    -bash "sudo adduser fernzugriff" (Erstellen von Benutzer Fernzugriff)
+### Erstellung vom Benutzer 'fernzugriff'
+    -bash "sudo adduser fernzugriff" (Erstellen von Benutzer 'fernzugriff')
 
-    -bash "sudo usermod -aG sudo fernzugriff" (Hinzufuegen der Benutzergruppe sudo zu fernzugriff)
+    -bash "sudo usermod -aG sudo fernzugriff" (Hinzufuegen der Benutzergruppe sudo zu 'fernzugriff')
 
     -bash "id fernzugriff" (Auslesen der Benutzerid und Benutzergruppen)
     -Ergebnis: Adminrechte
 
 ## 5. SSH Installieren
-    -Ziel: SSH installieren, damit der Benutzer fernzugriff, SSH nutzen kann.
+    -Ziel: SSH installieren, damit der Benutzer 'fernzugriff', SSH nutzen kann.
 
 ### Installation starten
     -bash: "sudo apt update" (Informationen zu updates erhalten)
@@ -130,15 +130,15 @@
         -enabled
 
 ## 6. SSH Einrichten
-    -Ziel: Benutzer fernzugriff soll SSH nutzen koennen
+    -Ziel: Benutzer 'fernzugriff' soll SSH nutzen koennen
 
 ### Verbindung hinzufuegen
     -bash: "ssh fernzugriff@192.168.24.104" (Die SSH Verbindung bei fernzugriff hinzufuegen)
     -bash: "yes" (bestaetigen)
-    -Anmelden mit fernzugriff
+    -Anmelden mit 'fernzugriff'
 
-### Benutzer auf server wechseln
-    -bash: "sudo su - server" (Benutzerwechsel forcen auf Benutzer server)
+### Benutzer auf 'server' wechseln
+    -bash: "sudo su - server" (Benutzerwechsel erzwingen auf Benutzer 'server')
 
 ## 7. Python und Docker installieren
     -Ziel: Python ist installiert und funktionsfaehig
@@ -151,7 +151,7 @@
 
 ### Starten von Docker
     -bash: "sudo systemctl enable docker" (Aktivieren von Docker)
-    -Bestaetigen mit Benutzer Server
+    -Bestaetigen mit Benutzer 'server'
 
     -bash: "sudo systemctl start docker" (Docker starten)
 
@@ -159,15 +159,15 @@
     -Ziel die Web-App liegt auf dem Server und ist ueber die statische IP erreichbar
 
 ### Wechseln des Benutzers
-    -bash: "su - fernzugriff" (anmelden als fernzugriff)
+    -bash: "su - fernzugriff" (anmelden als 'fernzugriff')
 
 ### Erstellen von einem Verzeichnis
-    -bash: "mkdir ~/todo-app (Erstellen eines Ordners im Benutzerpfad (= ~) von fernzugriff)
+    -bash: "mkdir ~/todo-app (Erstellen eines Ordners im Benutzerpfad (= ~) von 'fernzugriff')
     -bash: "cd ~/todo-app (navigieren in den Pfad)
 
 ### Web-App per Powershell verschieben
     -Terminal im Git-Verzeichnis oeffnen, wo die Datei liegt
-    -Befehl: "scp Web-App.py fernzugriff@192.168.24.104:/home/fernzugriff/todo-app/"
+    -Befehl: "scp Web-App.py fernzugriff@192.168.24.104:/home/fernzugriff/todo-app/" (Die Datei wird aus dem Verzeichnis in das Verzeichnis hochgeladen)
     -Danach wieder auf den Server wechseln
 
 ## 9. Python App starten
@@ -224,14 +224,14 @@
 
 ### Dockerfile vom Server per ssh Verbindung holen
     -terminal im Repo-Ordner oeffnen
-    -terminal: "scp fernzugriff@192.168.24.104:/home/fernzugriff/todo-app/dockerfile ." (download mit Benutzer Fernzugriff von Server mit IP, von Pfad in aktuellen Pfad)
-        -danach mit Passwort von fernzugriff bestaetigen
+    -terminal: "scp fernzugriff@192.168.24.104:/home/fernzugriff/todo-app/dockerfile ." (der Benutzer 'fernzugriff' baut eine SSH Verbindung auf und laedt die Datei herunter)
+        -danach mit Passwort von 'fernzugriff' bestaetigen
 
 
 ### Requirements.txt vom Server per ssh Verbindung holen
     -terminal im Repo-Ordner oeffnen
-    -terminal: "scp fernzugriff@192.168.24.104:/home/fernzugriff/todo-app/requirements.txt ." (download mit Benutzer Fernzugriff von Server mit IP, von Pfad in aktuellen Pfad)
-        -danach mit Passwort von fernzugriff bestaetigen
+    -terminal: "scp fernzugriff@192.168.24.104:/home/fernzugriff/todo-app/requirements.txt ." (der Benutzer 'fernzugriff' baut eine SSH Verbindung auf und laedt die Datei herunter)
+        -danach mit Passwort von 'fernzugriff' bestaetigen
 
 ### Netplan vom Server per ssh Verbindung holen
     -Der Netplan, ist vom Benutzer fernzugriff nicht direkt kopierbar per ssh. Deswegen wurde die yaml-Datei zuerst in den tmp Ordner kopiert, die Berechtigungen fuer die Kopie gegeben und nach dem Kopieren ueber ssh, die Datei aus tmp wieder geloescht.
@@ -240,6 +240,6 @@
     -bash: "sudo cp /etc/netplan/00-installer-config.yaml /tmp/netplan-config.yaml" (Datei auf dem Server vom etc Verzeichnis nach tmp kopieren und unbenennen)
     -bash: "sudo chmod 644 /tmp/netplan-config.yaml" (Berechtigungen auf die Datei erweitern fuer ssh)
     -terminal im Repo-Ordner oeffnen
-    -terminal: "scp fernzugriff@192.168.24.104:/tmp/netplan-config.yaml ." (download mit Benutzer Fernzugriff von Server mit IP, von Pfad in aktuellen Pfad)
-        -danach mit Passwort von fernzugriff bestaetigen
+    -terminal: "scp fernzugriff@192.168.24.104:/tmp/netplan-config.yaml ." (der Benutzer 'fernzugriff' baut eine SSH Verbindung auf und laedt die Datei herunter)
+        -danach mit Passwort von 'fernzugriff' bestaetigen
     -bash: "sudo rm /tmp/netplan-config.yaml" (Kopierte Datei wieder loeschen)
